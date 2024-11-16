@@ -1,28 +1,38 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Product } from '../../../entities/product';
 import { AddProductModal } from '../../../widgets/AddProductModal';
 import { DeleteModal } from '../../../widgets/DeleteModal';
 import SortProducts from '../../../shared/lib/SortProduct/SortProducts';
 
+import { useNavigate } from 'react-router-dom';
+import { RootState } from '../../../app/storage/store';
+import { deleteProduct, setSelectedProduct } from '../../../entities/productList/model/slices/productListSlice';
+
 export const ProductList: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const products = useSelector((state: RootState) => state.products.products);
   const [isProductModalOpen, setProductModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [sortOption, setSortOption] = useState<'alphabetical' | 'numeric'>('alphabetical');
+  const [pickedProduct, setPickedProduct] = useState<Product | null>(null);
+  const [sortOption, setSortOption] = useState<'alphabetical' | 'numeric'>(
+    'alphabetical'
+  );
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const sortedProducts = SortProducts(products, sortOption);
 
-  const handleAddProduct = (product: Product) => {
-    setProducts([...products, product]);
-    setProductModalOpen(false);
-  };
-
   const handleDeleteProduct = () => {
-    if (selectedProduct) {
-      setProducts(products.filter((p) => p.id !== selectedProduct.id));
+    if (pickedProduct) {
+      dispatch(deleteProduct(pickedProduct.id));
       setDeleteModalOpen(false);
     }
+  };
+
+  const handleSelectProduct = (product: Product) => {
+    dispatch(setSelectedProduct(product));
+    navigate('/details');
   };
 
   return (
@@ -33,7 +43,9 @@ export const ProductList: React.FC = () => {
           <select
             className="border rounded-md px-2 py-1 mr-2"
             value={sortOption}
-            onChange={(e) => setSortOption(e.target.value)}
+            onChange={(e) =>
+              setSortOption(e.target.value as 'alphabetical' | 'numeric')
+            }
           >
             <option value="alphabetical">Alphabetical</option>
             <option value="numeric">By Count</option>
@@ -52,16 +64,24 @@ export const ProductList: React.FC = () => {
           <li
             key={product.id}
             className="border rounded-md p-4 shadow-md flex flex-col items-center"
+            onClick={() => handleSelectProduct(product)}
           >
-            <img src={product.imageUrl} alt={product.name} className="h-32 w-32 object-cover mb-2" />
+            <img
+              src={product.imageUrl}
+              alt={product.name}
+              className="h-32 w-32 object-cover mb-2"
+            />
             <h2 className="font-bold text-lg">{product.name}</h2>
             <p>Count: {product.count}</p>
-            <p>Size: {product.size.width}x{product.size.height}</p>
+            <p>
+              Size: {product.size.width}x{product.size.height}
+            </p>
             <p>Weight: {product.weight}</p>
             <button
               className="bg-red-500 text-white px-4 py-2 rounded-md mt-2"
-              onClick={() => {
-                setSelectedProduct(product);
+              onClick={(e) => {
+                e.stopPropagation();
+                setPickedProduct(product);
                 setDeleteModalOpen(true);
               }}
             >
@@ -74,7 +94,6 @@ export const ProductList: React.FC = () => {
       {isProductModalOpen && (
         <AddProductModal
           onClose={() => setProductModalOpen(false)}
-          onSave={handleAddProduct}
         />
       )}
 

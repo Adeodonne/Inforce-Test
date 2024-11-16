@@ -27,7 +27,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint:fix": "eslint 'src/**/*.{js,jsx,ts,tsx}' --fix",
-    "lint": "eslint --resolve-plugins-relative-to ./node_modules/eslint"
+    "lint": "eslint --resolve-plugins-relative-to ./node_modules/eslint",
+    "dev": "ts-node-dev -r tsconfig-paths/register src/index.ts"
   },
   "eslintConfig": {
     "extends": [

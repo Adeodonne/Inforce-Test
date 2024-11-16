@@ -8,5 +8,13 @@ export interface Product {
     height: number;
   };
   weight: string;
-  comments: string[];
+  comments: Commentary[];
 }
+
+export interface Commentary {
+  id: number;
+  productId: number;
+  description: string;
+  date: string;
+}
+

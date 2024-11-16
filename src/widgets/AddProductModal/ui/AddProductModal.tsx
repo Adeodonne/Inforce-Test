@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Product } from '../../../entities/product';
 import { ModalWindow } from '../../../shared/ui/ModalWindow';
+import { useDispatch } from 'react-redux';
+import { addProduct } from '../../../entities/productList';
 
 interface ProductModalProps {
   onClose: () => void;
-  onSave: (product: Product) => void;
 }
 
-export const AddProductModal: React.FC<ProductModalProps> = ({ onClose, onSave }) => {
+export const AddProductModal: React.FC<ProductModalProps> = ({ onClose }) => {
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     name: '',
     count: 0,
@@ -38,13 +40,17 @@ export const AddProductModal: React.FC<ProductModalProps> = ({ onClose, onSave }
         weight: formData.weight,
         comments: [],
       };
-      onSave(newProduct);
+
+      dispatch(addProduct(newProduct));
+
+      onClose();
     }
   };
 
   return (
     <ModalWindow>
       <div className="bg-white p-6 rounded-md shadow-md w-96">
+
         <h2 className="text-xl font-bold mb-4">Add Product</h2>
 
         <div className="mb-4">
@@ -132,6 +138,7 @@ export const AddProductModal: React.FC<ProductModalProps> = ({ onClose, onSave }
           >
             Cancel
           </button>
+
           <button
             className={`px-4 py-2 rounded-md ${isFormValid ? 'bg-blue-500 text-white' : 'bg-gray-300 text-black'}`}
             disabled={!isFormValid}
@@ -139,6 +146,7 @@ export const AddProductModal: React.FC<ProductModalProps> = ({ onClose, onSave }
           >
             Save
           </button>
+
         </div>
       </div>
     </ModalWindow>
