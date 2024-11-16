@@ -15,7 +15,6 @@ const productsSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
-
     setSelectedProduct: (state, action: PayloadAction<Product>) => {
       state.selectedProduct = action.payload;
     },
@@ -26,13 +25,20 @@ const productsSlice = createSlice({
     },
 
     deleteProduct: (state, action: PayloadAction<number>) => {
-      state.products = state.products.filter(product => product.id !== action.payload);
+      state.products = state.products.filter(
+        (product) => product.id !== action.payload
+      );
       localStorage.setItem('products', JSON.stringify(state.products));
     },
 
-    addComment: (state, action: PayloadAction<{ productId: number; comment: Commentary }>) => {
+    addComment: (
+      state,
+      action: PayloadAction<{ productId: number; comment: Commentary }>
+    ) => {
       const { productId, comment } = action.payload;
-      const product = state.products.find(product => product.id === productId);
+      const product = state.products.find(
+        (product) => product.id === productId
+      );
       if (product) {
         if (!product.comments) {
           product.comments = [];
@@ -46,11 +52,18 @@ const productsSlice = createSlice({
       }
     },
 
-    deleteComment: (state, action: PayloadAction<{ productId: number; commentId: number }>) => {
+    deleteComment: (
+      state,
+      action: PayloadAction<{ productId: number; commentId: number }>
+    ) => {
       const { productId, commentId } = action.payload;
-      const product = state.products.find(product => product.id === productId);
+      const product = state.products.find(
+        (product) => product.id === productId
+      );
       if (product) {
-        product.comments = product.comments.filter((comment: Commentary) => comment.id !== commentId);
+        product.comments = product.comments.filter(
+          (comment: Commentary) => comment.id !== commentId
+        );
         localStorage.setItem('products', JSON.stringify(state.products));
 
         if (state.selectedProduct?.id === productId) {
@@ -58,9 +71,14 @@ const productsSlice = createSlice({
         }
       }
     },
-
   },
 });
 
-export const { addProduct, deleteProduct, addComment, deleteComment, setSelectedProduct } = productsSlice.actions;
+export const {
+  addProduct,
+  deleteProduct,
+  addComment,
+  deleteComment,
+  setSelectedProduct,
+} = productsSlice.actions;
 export default productsSlice.reducer;

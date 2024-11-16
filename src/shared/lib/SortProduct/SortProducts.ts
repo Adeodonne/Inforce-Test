@@ -1,12 +1,15 @@
-import { Product } from "../../../entities/product";
+import { Product } from '../../../entities/productList';
 
-const SortProducts = (products: Product[], sortOption : "alphabetical" | "numeric") => {
-   return [...products].sort((a, b) => {
+const SortProducts = (
+  products: Product[],
+  sortOption: 'alphabetical' | 'numeric'
+) => {
+  return [...products].sort((a, b) => {
     if (sortOption === 'alphabetical') {
       return a.name.localeCompare(b.name) || b.count - a.count;
     }
-    return  b.count - a.count || a.name.localeCompare(b.name);
+    return b.count - a.count || a.name.localeCompare(b.name);
   });
-}
+};
 
 export default SortProducts;

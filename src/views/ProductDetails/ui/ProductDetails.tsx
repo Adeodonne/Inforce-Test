@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../app/storage/store';
-import { Commentary } from '../../../entities/product';
 import {
   addComment,
   deleteComment,
   setSelectedProduct,
 } from '../../../entities/productList/model/slices/productListSlice';
+import { Commentary } from '../../../entities/productList';
 
 export const ProductDetails: React.FC = () => {
   const [newComment, setNewComment] = useState('');
@@ -55,7 +55,6 @@ export const ProductDetails: React.FC = () => {
 
   return (
     <div className="p-4 space-y-4">
-
       <div className="flex justify-between items-center">
         <h2 className="text-xl">{product.name}</h2>
       </div>
@@ -109,7 +108,6 @@ export const ProductDetails: React.FC = () => {
         >
           Add Comment
         </button>
-
       </div>
     </div>
   );

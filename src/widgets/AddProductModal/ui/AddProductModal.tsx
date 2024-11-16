@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Product } from '../../../entities/product';
 import { ModalWindow } from '../../../shared/ui/ModalWindow';
 import { useDispatch } from 'react-redux';
-import { addProduct } from '../../../entities/productList';
+import { addProduct, Product } from '../../../entities/productList';
 
 interface ProductModalProps {
   onClose: () => void;
@@ -25,7 +24,10 @@ export const AddProductModal: React.FC<ProductModalProps> = ({ onClose }) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: name === 'count' || name === 'width' || name === 'height' ? +value : value,
+      [name]:
+        name === 'count' || name === 'width' || name === 'height'
+          ? +value
+          : value,
     });
   };
 
@@ -50,11 +52,12 @@ export const AddProductModal: React.FC<ProductModalProps> = ({ onClose }) => {
   return (
     <ModalWindow>
       <div className="bg-white p-6 rounded-md shadow-md w-96">
-
         <h2 className="text-xl font-bold mb-4">Add Product</h2>
 
         <div className="mb-4">
-          <label htmlFor="name" className="block font-medium mb-2">Product Name</label>
+          <label htmlFor="name" className="block font-medium mb-2">
+            Product Name
+          </label>
           <input
             type="text"
             id="name"
@@ -67,7 +70,9 @@ export const AddProductModal: React.FC<ProductModalProps> = ({ onClose }) => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="count" className="block font-medium mb-2">Count</label>
+          <label htmlFor="count" className="block font-medium mb-2">
+            Count
+          </label>
           <input
             type="number"
             id="count"
@@ -80,7 +85,9 @@ export const AddProductModal: React.FC<ProductModalProps> = ({ onClose }) => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="imageUrl" className="block font-medium mb-2">Image URL</label>
+          <label htmlFor="imageUrl" className="block font-medium mb-2">
+            Image URL
+          </label>
           <input
             type="text"
             id="imageUrl"
@@ -93,7 +100,9 @@ export const AddProductModal: React.FC<ProductModalProps> = ({ onClose }) => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="width" className="block font-medium mb-2">Width</label>
+          <label htmlFor="width" className="block font-medium mb-2">
+            Width
+          </label>
           <input
             type="number"
             id="width"
@@ -106,7 +115,9 @@ export const AddProductModal: React.FC<ProductModalProps> = ({ onClose }) => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="height" className="block font-medium mb-2">Height</label>
+          <label htmlFor="height" className="block font-medium mb-2">
+            Height
+          </label>
           <input
             type="number"
             id="height"
@@ -119,7 +130,9 @@ export const AddProductModal: React.FC<ProductModalProps> = ({ onClose }) => {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="weight" className="block font-medium mb-2">Weight</label>
+          <label htmlFor="weight" className="block font-medium mb-2">
+            Weight
+          </label>
           <input
             type="text"
             id="weight"
@@ -146,7 +159,6 @@ export const AddProductModal: React.FC<ProductModalProps> = ({ onClose }) => {
           >
             Save
           </button>
-
         </div>
       </div>
     </ModalWindow>

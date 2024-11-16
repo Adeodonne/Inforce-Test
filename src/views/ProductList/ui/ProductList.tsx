@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Product } from '../../../entities/product';
 import { AddProductModal } from '../../../widgets/AddProductModal';
 import { DeleteModal } from '../../../widgets/DeleteModal';
 import SortProducts from '../../../shared/lib/SortProduct/SortProducts';
 
 import { useNavigate } from 'react-router-dom';
 import { RootState } from '../../../app/storage/store';
-import { deleteProduct, setSelectedProduct } from '../../../entities/productList/model/slices/productListSlice';
+import {
+  deleteProduct,
+  setSelectedProduct,
+} from '../../../entities/productList/model/slices/productListSlice';
+import { Product } from '../../../entities/productList';
 
 export const ProductList: React.FC = () => {
   const products = useSelector((state: RootState) => state.products.products);
@@ -92,9 +95,7 @@ export const ProductList: React.FC = () => {
       </ul>
 
       {isProductModalOpen && (
-        <AddProductModal
-          onClose={() => setProductModalOpen(false)}
-        />
+        <AddProductModal onClose={() => setProductModalOpen(false)} />
       )}
 
       {isDeleteModalOpen && (

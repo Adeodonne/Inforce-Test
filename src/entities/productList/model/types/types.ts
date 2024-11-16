@@ -17,4 +17,3 @@ export interface Commentary {
   description: string;
   date: string;
 }
-

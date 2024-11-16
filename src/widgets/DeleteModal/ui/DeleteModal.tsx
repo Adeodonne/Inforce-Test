@@ -6,7 +6,10 @@ interface DeleteConfirmationModalProps {
   onConfirm: () => void;
 }
 
-export const DeleteModal: React.FC<DeleteConfirmationModalProps> = ({ onClose, onConfirm }) => {
+export const DeleteModal: React.FC<DeleteConfirmationModalProps> = ({
+  onClose,
+  onConfirm,
+}) => {
   return (
     <ModalWindow>
       <div className="bg-white p-6 rounded-md shadow-md">
